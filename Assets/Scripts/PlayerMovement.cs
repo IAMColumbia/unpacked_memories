@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     public InputActionReference moveAction;
+    public float WalkSpeed = 3f;
     private CharacterController characterController;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -16,9 +17,19 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Vector2 moveInput = moveAction.action.ReadValue<Vector2>();
-        Debug.Log("Input: " + moveInput);
+        Debug.Log($"X={moveInput.x}, Y={moveInput.y}");
+        Debug.Log(moveAction.action.name);
 
-        Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
-        characterController.Move(move * Time.deltaTime);
+        Vector3 forward = Camera.main.transform.forward;
+        Vector3 right = Camera.main.transform.right;
+
+        forward.y = 0f;
+        right.y = 0f;
+
+        forward.Normalize();
+        right.Normalize();
+
+        Vector3 direction = forward * moveInput.y + right * moveInput.x;
+        characterController.Move(direction * WalkSpeed * Time.deltaTime);
     }
 }
