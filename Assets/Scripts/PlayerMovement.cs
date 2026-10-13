@@ -3,8 +3,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public InputActionReference moveAction;
-    public float WalkSpeed = 3f;
+    [Tooltip("How fast the player walks, in meters per second.")]
+    [SerializeField] private float _walkSpeed = 3f;
+    
+    [Tooltip("The input action that moves the player.")]
+    [SerializeField] private InputActionReference _moveAction;
+
+    
     private CharacterController characterController;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -16,9 +21,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 moveInput = moveAction.action.ReadValue<Vector2>();
+        Vector2 moveInput = _moveAction.action.ReadValue<Vector2>();
         Debug.Log($"X={moveInput.x}, Y={moveInput.y}");
-        Debug.Log(moveAction.action.name);
+        Debug.Log(_moveAction.action.name);
 
         Vector3 forward = Camera.main.transform.forward;
         Vector3 right = Camera.main.transform.right;
@@ -30,6 +35,6 @@ public class PlayerMovement : MonoBehaviour
         right.Normalize();
 
         Vector3 direction = forward * moveInput.y + right * moveInput.x;
-        characterController.Move(direction * WalkSpeed * Time.deltaTime);
+        characterController.Move(direction * _walkSpeed * Time.deltaTime);
     }
 }
