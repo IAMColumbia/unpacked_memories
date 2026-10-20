@@ -5,10 +5,10 @@ public class PlayerInteractor : MonoBehaviour
 {
     
     [Tooltip("The input action that interacts with whatever the player is looking at.")]
-    private InputActionReference _interactAction;
+    [SerializeField] private InputActionReference _interactAction;
 
     [Tooltip("How far away, in meters, the player can reach to interact.")]
-    private float _reachDistance = 2f;
+    [SerializeField] private float _reachDistance = 2f;
 
     private void OnEnable()
     {
@@ -30,8 +30,6 @@ public class PlayerInteractor : MonoBehaviour
             _reachDistance
         );
 
-        Debug.Log("Hit: " + hitSomething);
-
         if (!hitSomething)
         {
             return;
@@ -43,7 +41,6 @@ public class PlayerInteractor : MonoBehaviour
         if (interactable != null)
         {
             interactable.Interact();
-            Debug.Log("Found interactable");
         }
     }
 

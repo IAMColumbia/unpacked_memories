@@ -23,7 +23,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 moveInput = _moveAction.action.ReadValue<Vector2>();
         Debug.Log($"X={moveInput.x}, Y={moveInput.y}");
-        Debug.Log(_moveAction.action.name);
 
         Vector3 forward = Camera.main.transform.forward;
         Vector3 right = Camera.main.transform.right;
